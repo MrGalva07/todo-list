@@ -1,0 +1,22 @@
+# .NET
+bin/
+obj/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.cache
+*.csproj.user
+appsettings.Development.json
+
+# Visual Studio
+.vs/
+.vscode/
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
