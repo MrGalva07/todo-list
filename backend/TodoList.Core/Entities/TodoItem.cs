@@ -1,25 +1,27 @@
 namespace TodoList.Core.Entities;
 
-
 public class TodoItem
 {
-  
+
     public TodoItem(string title, string description)
     {
-        Id = Guid.NewGuid();  
+        Id = Guid.NewGuid();
         Title = title;
         Description = description;
-        IsCompleted = false;  // Começa como não concluída
-        CreatedAt = DateTime.UtcNow;  // Marca o momento da criação
+        IsCompleted = false;
+        CreatedAt = DateTime.UtcNow;
     }
 
 
-    public Guid Id { get; private set; }  
-    public string Title { get; private set; }
-    public string Description { get; private set; }
+    private TodoItem() { }
+
+    // Propriedades
+    public Guid Id { get; private set; }
+    public string Title { get; private set; } = string.Empty;
+    public string Description { get; private set; } = string.Empty;
     public bool IsCompleted { get; private set; }
     public DateTime CreatedAt { get; private set; }
-    public DateTime? CompletedAt { get; private set; } 
+    public DateTime? CompletedAt { get; private set; }
 
 
     public void Complete()
