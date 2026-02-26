@@ -6,10 +6,8 @@ using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container
 builder.Services.AddControllers();
 builder.Services.AddOpenApi(); 
-
 
 builder.Services.AddCors(options =>
 {
@@ -20,7 +18,8 @@ builder.Services.AddCors(options =>
                 "http://localhost:3000",  
                 "http://localhost:3001",  
                 "http://localhost:3002",  
-                "http://localhost:3003"  
+                "http://localhost:3003",
+                "https://todo-list07.vercel.app" 
             )
             .AllowAnyHeader()              
             .AllowAnyMethod()              
@@ -28,16 +27,16 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Configure PostgreSQL database
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// Register repository
+
 builder.Services.AddScoped<ITodoRepository, TodoRepository>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline
+
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();                               
@@ -53,11 +52,21 @@ app.UseCors("AllowReactApp");
 app.UseAuthorization();
 app.MapControllers();
 
-// Ensure database is created
+
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    dbContext.Database.EnsureCreated(); // Cria o banco se não existir
+    
+    if (app.Environment.IsProduction())
+    {
+        dbContext.Database.Migrate(); // Aplica migrations no Render
+        Console.WriteLine("✅ Migrations applied successfully");
+    }
+    else
+    {
+        dbContext.Database.EnsureCreated(); // cria banco se não existir
+        Console.WriteLine("✅ Database ensured created (development)");
+    }
 }
 
 app.Run();
