@@ -13,8 +13,7 @@ const fadeIn = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `;
 
-
-
+// ========== TIPOS ==========
 type FilterType = 'all' | 'active' | 'completed';
 
 // ========== ESTILOS ==========
@@ -61,7 +60,6 @@ const StyledInput = styled.input<{ $hasError?: boolean }>`
         border-bottom-color: ${props => props.$hasError ? theme.colors.danger : theme.colors.neonOrange};
     }
 `;
-
 
 const StyledTextArea = styled.textarea<{ $hasError?: boolean }>`
     ${inputStyle}
@@ -238,7 +236,7 @@ const ButtonGroup = styled.div`
     margin-top: ${theme.spacing.xs};
 `;
 
-
+// ========== COMPONENTE PRINCIPAL ==========
 const TodoList: React.FC = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
     const [loading, setLoading] = useState(false);
@@ -254,9 +252,8 @@ const TodoList: React.FC = () => {
         try {
             const data = await todoService.getAll();
             setTodos(data);
-        } catch (err) {
+        } catch {
             toast.error('Erro ao carregar tarefas');
-            console.error(err);
         } finally {
             setLoading(false);
         }
@@ -272,11 +269,9 @@ const TodoList: React.FC = () => {
         return true;
     });
 
-
     const totalTasks = todos.length;
     const completedTasks = todos.filter(t => t.isCompleted).length;
     const activeTasks = totalTasks - completedTasks;
-
 
     const validateForm = (): boolean => {
         if (formData.title.trim().length < 3) {
@@ -291,7 +286,6 @@ const TodoList: React.FC = () => {
         return true;
     };
 
-    // Criar tarefa
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         
@@ -307,14 +301,13 @@ const TodoList: React.FC = () => {
             setFormData({ title: '', description: '' });
             await loadTodos();
             toast.success('Tarefa criada!');
-        } catch (err) {
+        } catch {
             toast.error('Erro ao salvar tarefa');
         } finally {
             setLoading(false);
         }
     };
 
-  
     const handleToggleComplete = async (todo: Todo) => {
         try {
             await todoService.update(todo.id, {
@@ -324,12 +317,11 @@ const TodoList: React.FC = () => {
             });
             await loadTodos();
             toast.success(todo.isCompleted ? 'Tarefa reaberta!' : 'Tarefa concluída!');
-        } catch (err) {
+        } catch {
             toast.error('Erro ao atualizar');
         }
     };
 
-    // Deletar tarefa
     const handleDelete = async (id: string) => {
         if (!window.confirm('Deletar esta tarefa?')) return;
 
@@ -337,7 +329,7 @@ const TodoList: React.FC = () => {
             await todoService.delete(id);
             await loadTodos();
             toast.success('Tarefa deletada!');
-        } catch (err) {
+        } catch {
             toast.error('Erro ao deletar');
         }
     };
@@ -428,15 +420,16 @@ const TodoList: React.FC = () => {
                 ))}
             </TodoListContainer>
 
-       {filteredTodos.length === 0 && !loading && (
-    <EmptyState>
-        ✨ Nenhuma tarefa {
-            filter === 'all' ? '' : 
-            filter === 'active' ? 'ativa' : 
-            filter === 'completed' ? 'concluída' : ''
-        }
-    </EmptyState>
-)}
+            {filteredTodos.length === 0 && !loading && (
+                <EmptyState>
+                     Nenhuma tarefa {
+                        filter === 'all' ? '' : 
+                        filter === 'active' ? 'ativa' : 
+                        filter === 'completed' ? 'concluída' : ''
+                    }
+                </EmptyState>
+            )}
+
             <NumbersIndicator>
                 <NumberItem>
                     <span>{totalTasks}</span> total
