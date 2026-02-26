@@ -1,19 +1,17 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
+COPY backend/TodoList.API/*.csproj TodoList.API/
+COPY backend/TodoList.Core/*.csproj TodoList.Core/
+COPY backend/TodoList.Infrastructure/*.csproj TodoList.Infrastructure/
 
-COPY TodoList.API/*.csproj TodoList.API/
-COPY TodoList.Core/*.csproj TodoList.Core/
-COPY TodoList.Infrastructure/*.csproj TodoList.Infrastructure/
 
+COPY backend/*.sln* .
 
-COPY *.sln* .
-
-# Restaurar usando a solution
 RUN dotnet restore
 
-COPY . .
 
+COPY backend/ .
 
 RUN dotnet publish TodoList.API -c Release -o /app/publish
 
