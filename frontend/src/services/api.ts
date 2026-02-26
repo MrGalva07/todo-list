@@ -2,9 +2,9 @@ import axios from 'axios';
 import { Todo, CreateTodoDto, UpdateTodoDto } from '../types/Todo';
 
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
-console.log(' Conectando à API:', API_URL);
+console.log('🔌 Conectando à API:', API_URL);
 
 const api = axios.create({
     baseURL: API_URL,
@@ -14,7 +14,7 @@ const api = axios.create({
     timeout: 5000,
 });
 
-// Interceptor para log detalhado
+
 api.interceptors.request.use(config => {
     console.log(' Requisição:', {
         method: config.method?.toUpperCase(),
@@ -27,14 +27,14 @@ api.interceptors.request.use(config => {
 
 api.interceptors.response.use(
     response => {
-        console.log(' Resposta:', {
+        console.log('Resposta:', {
             status: response.status,
             data: response.data
         });
         return response;
     },
     error => {
-        console.error(' Erro detalhado:', {
+        console.error('Erro detalhado:', {
             message: error.message,
             code: error.code,
             status: error.response?.status,
@@ -66,7 +66,7 @@ export const todoService = {
     // Criar nova tarefa
     create: async (data: CreateTodoDto): Promise<Todo> => {
         try {
-            console.log(' Criando tarefa:', data);
+            console.log('📡 Criando tarefa:', data);
             const response = await api.post<Todo>('/todo', data);
             console.log(' Tarefa criada:', response.data);
             return response.data;
@@ -81,7 +81,7 @@ export const todoService = {
         try {
             console.log(' Atualizando tarefa:', id, data);
             await api.put(`/todo/${id}`, data);
-            console.log(' Tarefa atualizada');
+            console.log('Tarefa atualizada');
         } catch (error) {
             console.error(' Erro no update:', error);
             throw error;
@@ -95,7 +95,7 @@ export const todoService = {
             await api.delete(`/todo/${id}`);
             console.log(' Tarefa deletada');
         } catch (error) {
-            console.error('Erro no delete:', error);
+            console.error(' Erro no delete:', error);
             throw error;
         }
     },
@@ -109,7 +109,7 @@ export const testConnection = async (): Promise<boolean> => {
         console.log(' Conexão OK!', response.data);
         return true;
     } catch (error) {
-        console.error('Falha na conexão:', error);
+        console.error(' Falha na conexão:', error);
         return false;
     }
 };
