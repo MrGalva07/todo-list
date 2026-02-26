@@ -37,6 +37,18 @@ services:
     networks:
       - todo-network
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: todo-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - todo-network
+
 volumes:
   postgres_data:
 

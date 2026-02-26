@@ -8,17 +8,23 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
 builder.Services.AddControllers();
-builder.Services.AddOpenApi(); // Novo do .NET 10
+builder.Services.AddOpenApi(); 
 
-// Configure CORS for React frontend
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowReactApp",
-        builder =>
+        policy =>
         {
-            builder.WithOrigins("http://localhost:3000")
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
+            policy.WithOrigins(
+                "http://localhost:3000",  
+                "http://localhost:3001",  
+                "http://localhost:3002",  
+                "http://localhost:3003"  
+            )
+            .AllowAnyHeader()              
+            .AllowAnyMethod()              
+            .AllowCredentials();          
         });
 });
 
@@ -34,12 +40,16 @@ var app = builder.Build();
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())
 {
-    app.MapOpenApi(); // Mapeia o OpenAPI
-    app.MapScalarApiReference(); // UI moderna para testar a API (acessar /scalar)
+    app.MapOpenApi();                               
+    app.MapScalarApiReference(options =>            
+    {
+        options.WithTitle("Todo List API")
+               .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient);
+    });
 }
 
-app.UseHttpsRedirection();
-app.UseCors("AllowReactApp");
+app.UseHttpsRedirection();  
+app.UseCors("AllowReactApp"); 
 app.UseAuthorization();
 app.MapControllers();
 
@@ -47,7 +57,7 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-    dbContext.Database.EnsureCreated();
+    dbContext.Database.EnsureCreated(); // Cria o banco se não existir
 }
 
 app.Run();
