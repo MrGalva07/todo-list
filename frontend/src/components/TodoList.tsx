@@ -13,11 +13,6 @@ const fadeIn = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `;
 
-const glowPulse = keyframes`
-  0% { box-shadow: 0 0 0 0 ${theme.colors.neonOrangeGlow}; }
-  70% { box-shadow: 0 0 10px 5px ${theme.colors.neonOrangeGlow}; }
-  100% { box-shadow: 0 0 0 0 ${theme.colors.neonOrangeGlow}; }
-`;
 
 
 type FilterType = 'all' | 'active' | 'completed';
