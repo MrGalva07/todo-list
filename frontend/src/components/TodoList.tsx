@@ -313,7 +313,7 @@ const TodoList: React.FC = () => {
             }
         } catch (error) {
             setLoadError('Não foi possível conectar ao servidor. O serviço pode estar inicializando...');
-            // Não mostra toast error no carregamento inicial
+         
             if (!initialLoading) {
                 toast.error('Erro ao carregar tarefas. Tentando novamente...');
             }
@@ -324,16 +324,16 @@ const TodoList: React.FC = () => {
     };
 
     useEffect(() => {
-        // Carregamento inicial com timeout mais longo
+     
         const timeoutId = setTimeout(() => {
             if (initialLoading) {
                 loadTodos();
             }
-        }, 1000); // Pequeno delay para não mostrar loading se for rápido
+        }, 1000); 
 
         return () => clearTimeout(timeoutId);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // Executa apenas uma vez na montagem
+  
+    }, []);
 
     const filteredTodos = todos.filter(todo => {
         if (filter === 'active') return !todo.isCompleted;
@@ -410,7 +410,7 @@ const TodoList: React.FC = () => {
         loadTodos(true);
     };
 
-    // Loading inicial - mensagem amigável
+    // Loading inicial 
     if (initialLoading) {
         return (
             <Container>
