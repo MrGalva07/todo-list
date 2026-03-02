@@ -427,7 +427,7 @@ const TodoList: React.FC = () => {
         );
     }
 
-    // Erro no carregamento - opção de tentar novamente
+    // Erro no carregamento(tentar novamente)
     if (loadError) {
         return (
             <Container>
