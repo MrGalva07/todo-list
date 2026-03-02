@@ -10,7 +10,13 @@ import { cardStyle, inputStyle, neonButton, flexCenter, truncateText } from '../
 // ========== ANIMAÇÕES ==========
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  to { opacity:  ̀1; transform: translateY(0); }
+`;
+
+const pulse = keyframes`
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 `;
 
 // ========== TIPOS ==========
@@ -196,6 +202,35 @@ const DeleteButton = styled.button`
     }
 `;
 
+const LoadingState = styled.div`
+    ${flexCenter}
+    flex-direction: column;
+    padding: ${theme.spacing.xxl} ${theme.spacing.lg};
+    color: ${theme.colors.textSecondary};
+    font-size: ${theme.typography.sizes.md};
+    text-align: center;
+    gap: ${theme.spacing.md};
+`;
+
+const LoadingSpinner = styled.div`
+    width: 40px;
+    height: 40px;
+    border: 3px solid ${theme.colors.border};
+    border-top-color: ${theme.colors.neonOrange};
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+`;
+
+const LoadingText = styled.p`
+    color: ${theme.colors.textSecondary};
+    font-size: ${theme.typography.sizes.sm};
+    animation: ${pulse} 1.5s ease-in-out infinite;
+`;
+
 const EmptyState = styled.div`
     ${flexCenter}
     ${cardStyle}
@@ -236,10 +271,29 @@ const ButtonGroup = styled.div`
     margin-top: ${theme.spacing.xs};
 `;
 
+const RetryButton = styled.button`
+    background: transparent;
+    border: 1px solid ${theme.colors.neonOrange};
+    color: ${theme.colors.neonOrange};
+    padding: ${theme.spacing.sm} ${theme.spacing.lg};
+    border-radius: ${theme.borderRadius.md};
+    font-size: ${theme.typography.sizes.sm};
+    cursor: pointer;
+    transition: ${theme.transitions.default};
+    margin-top: ${theme.spacing.md};
+
+    &:hover {
+        background: ${theme.colors.neonOrange};
+        color: white;
+    }
+`;
+
 // ========== COMPONENTE PRINCIPAL ==========
 const TodoList: React.FC = () => {
     const [todos, setTodos] = useState<Todo[]>([]);
     const [loading, setLoading] = useState(false);
+    const [initialLoading, setInitialLoading] = useState(true);
+    const [loadError, setLoadError] = useState<string | null>(null);
     const [filter, setFilter] = useState<FilterType>('all');
     const [formData, setFormData] = useState<CreateTodoDto>({
         title: '',
@@ -247,20 +301,37 @@ const TodoList: React.FC = () => {
     });
     const [titleError, setTitleError] = useState<string>('');
 
-    const loadTodos = async () => {
+    const loadTodos = async (showToast = false) => {
         setLoading(true);
+        setLoadError(null);
+        
         try {
             const data = await todoService.getAll();
             setTodos(data);
-        } catch {
-            toast.error('Erro ao carregar tarefas');
+            if (showToast) {
+                toast.success('Tarefas carregadas!');
+            }
+        } catch (error) {
+            setLoadError('Não foi possível conectar ao servidor. O serviço pode estar inicializando...');
+            // Não mostra toast error no carregamento inicial
+            if (!initialLoading) {
+                toast.error('Erro ao carregar tarefas. Tentando novamente...');
+            }
         } finally {
             setLoading(false);
+            setInitialLoading(false);
         }
     };
 
     useEffect(() => {
-        loadTodos();
+        // Carregamento inicial com timeout mais longo
+        const timeoutId = setTimeout(() => {
+            if (initialLoading) {
+                loadTodos();
+            }
+        }, 1000); // Pequeno delay para não mostrar loading se for rápido
+
+        return () => clearTimeout(timeoutId);
     }, []);
 
     const filteredTodos = todos.filter(todo => {
@@ -333,6 +404,45 @@ const TodoList: React.FC = () => {
             toast.error('Erro ao deletar');
         }
     };
+
+    const handleRetry = () => {
+        loadTodos(true);
+    };
+
+    // Loading inicial - mensagem amigável
+    if (initialLoading) {
+        return (
+            <Container>
+                <Header>
+                    <Title>Minhas Tarefas</Title>
+                </Header>
+                <LoadingState>
+                    <LoadingSpinner />
+                    <LoadingText>Iniciando aplicação...</LoadingText>
+                    <LoadingText style={{ fontSize: '0.8rem' }}>
+                        O servidor pode levar alguns segundos para iniciar
+                    </LoadingText>
+                </LoadingState>
+            </Container>
+        );
+    }
+
+    // Erro no carregamento - opção de tentar novamente
+    if (loadError) {
+        return (
+            <Container>
+                <Header>
+                    <Title>Minhas Tarefas</Title>
+                </Header>
+                <EmptyState>
+                    <p>{loadError}</p>
+                    <RetryButton onClick={handleRetry}>
+                        Tentar novamente
+                    </RetryButton>
+                </EmptyState>
+            </Container>
+        );
+    }
 
     return (
         <Container>
