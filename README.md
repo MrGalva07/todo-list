@@ -27,7 +27,7 @@ Esta implementação foi cuidadosamente projetada para garantir uma experiência
 - **Entity Framework Core** - ORM para PostgreSQL
 - **Clean Architecture** - Separação em camadas (Core, Infrastructure, API)
 - **PostgreSQL** - Banco de dados relacional
-- **Scalar** - Documentação interativa da API
+
 
 ### Frontend
 - **React 18** com **TypeScript**
