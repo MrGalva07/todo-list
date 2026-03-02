@@ -10,7 +10,7 @@ import { cardStyle, inputStyle, neonButton, flexCenter, truncateText } from '../
 // ========== ANIMAÇÕES ==========
 const fadeIn = keyframes`
   from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }  // ← ACENTO REMOVIDO!
+  to { opacity: 1; transform: translateY(0); }
 `;
 
 const pulse = keyframes`
@@ -324,15 +324,14 @@ const TodoList: React.FC = () => {
     };
 
     useEffect(() => {
-     
         const timeoutId = setTimeout(() => {
             if (initialLoading) {
                 loadTodos();
             }
-        }, 1000); 
+        }, 1000);
 
         return () => clearTimeout(timeoutId);
-  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const filteredTodos = todos.filter(todo => {
