@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "qHeDBbAUC6o=",
+  "dgSpecHash": "JSB1/gWOIpU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\todo-list-app\\backend\\TodoList.API\\TodoList.API.csproj",
+  "projectFilePath": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\PROJETOSGALVA\\todo-list-app\\backend\\TodoList.API\\TodoList.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\luckg\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\luckg\\.nuget\\packages\\microsoft.aspnetcore.openapi\\10.0.3\\microsoft.aspnetcore.openapi.10.0.3.nupkg.sha512",
@@ -38,9 +38,9 @@
       "code": "NU1603",
       "level": "Warning",
       "message": "TodoList.API depende de Microsoft.EntityFrameworkCore.Design (>= 10.0.0-preview.1), mas Microsoft.EntityFrameworkCore.Design 10.0.0-preview.1 não foi encontrado. Microsoft.EntityFrameworkCore.Design 10.0.0-preview.1.25081.1 foi resolvido em vez disso.",
-      "projectPath": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\todo-list-app\\backend\\TodoList.API\\TodoList.API.csproj",
+      "projectPath": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\PROJETOSGALVA\\todo-list-app\\backend\\TodoList.API\\TodoList.API.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\todo-list-app\\backend\\TodoList.API\\TodoList.API.csproj",
+      "filePath": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\PROJETOSGALVA\\todo-list-app\\backend\\TodoList.API\\TodoList.API.csproj",
       "libraryId": "Microsoft.EntityFrameworkCore.Design",
       "targetGraphs": [
         "net10.0"

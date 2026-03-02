@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\todo-list-app\\backend\\TodoList.Core\\TodoList.Core.csproj": {}
+    "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\PROJETOSGALVA\\todo-list-app\\backend\\TodoList.Core\\TodoList.Core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\todo-list-app\\backend\\TodoList.Core\\TodoList.Core.csproj": {
+    "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\PROJETOSGALVA\\todo-list-app\\backend\\TodoList.Core\\TodoList.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\todo-list-app\\backend\\TodoList.Core\\TodoList.Core.csproj",
+        "projectUniqueName": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\PROJETOSGALVA\\todo-list-app\\backend\\TodoList.Core\\TodoList.Core.csproj",
         "projectName": "TodoList.Core",
-        "projectPath": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\todo-list-app\\backend\\TodoList.Core\\TodoList.Core.csproj",
+        "projectPath": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\PROJETOSGALVA\\todo-list-app\\backend\\TodoList.Core\\TodoList.Core.csproj",
         "packagesPath": "C:\\Users\\luckg\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\todo-list-app\\backend\\TodoList.Core\\obj\\",
+        "outputPath": "C:\\Users\\luckg\\OneDrive\\Área de Trabalho\\PROJETOSGALVA\\todo-list-app\\backend\\TodoList.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\luckg\\AppData\\Roaming\\NuGet\\NuGet.Config"

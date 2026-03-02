@@ -6,6 +6,18 @@ princípios da Clean Architecture e está totalmente containerizado com Docker.
 
 🔗 **Aplicação em Produção:** [https://todo-list07.vercel.app]
 
+
+## ⚡ Observação sobre o Primeiro Acesso
+O backend está hospedado no Render utilizando o plano gratuito, que desativa o serviço após 15 minutos de inatividade para otimização de recursos. 
+Comportamento esperado:
+
+No primeiro acesso do dia ou após um período sem uso, o servidor pode levar de 20 a 30 segundos para "acordar"
+
+Durante este breve momento, a interface exibe uma mensagem amigável de "Iniciando aplicação..." com um spinner de carregamento
+
+Após a inicialização, todas as funcionalidades operam com resposta imediata
+
+Esta implementação foi cuidadosamente projetada para garantir uma experiência transparente, informando o usuário sobre o processo sem jamais sugerir falhas no código. ✅
 ---
 
 ## 🚀 Tecnologias Utilizadas
