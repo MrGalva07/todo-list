@@ -17,7 +17,7 @@ Durante este breve momento, a interface exibe uma mensagem amigável de "Inician
 
 Após a inicialização, todas as funcionalidades operam com resposta imediata
 
-Esta implementação foi cuidadosamente projetada para garantir uma experiência transparente, informando o usuário sobre o processo sem jamais sugerir falhas no código. ✅
+Esta implementação foi cuidadosamente projetada para garantir uma experiência transparente, informando o usuário sobre o processo ✅
 ---
 
 ## 🚀 Tecnologias Utilizadas
